@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:t_manager/UI/Controllers/auth_controller.dart';
 import 'package:t_manager/UI/screens/forgot_password_screen.dart';
 import 'package:t_manager/UI/screens/main_bottom_nav_bar_screen.dart';
 import 'package:t_manager/UI/screens/sign_up_screen.dart';
@@ -10,6 +11,7 @@ import 'package:t_manager/UI/widgets/show_snack_bar.dart';
 import 'package:t_manager/data/models/network_responses.dart';
 import 'package:t_manager/data/services/network_caller.dart';
 import 'package:t_manager/data/utils/urls.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -148,12 +150,14 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
+
   void _onTapNextButton() {
     if (!_formkey.currentState!.validate()) {
       return;
     }
     _SignIn();
   }
+
   Future<void> _SignIn() async {
     _inProgress = true;
     setState(() {});
@@ -162,10 +166,12 @@ class _SignInScreenState extends State<SignInScreen> {
       'password': _passwordTEController.text,
     };
     final NetworkResponse response =
-        await NetworkCaller.postRequest(url: Urls.login,body: requestbody);
+        await NetworkCaller.postRequest(url: Urls.login, body: requestbody);
     _inProgress = false;
     setState(() {});
     if (response.isSuccess) {
+      await AuthController.saveAccessToken(response.ResponseData['token']);
+
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -177,8 +183,6 @@ class _SignInScreenState extends State<SignInScreen> {
       showSnackBarMessage(context, response.errorMessage, true);
     }
   }
-
-
 
   void _onTapsignUpButton() {
     Navigator.push(

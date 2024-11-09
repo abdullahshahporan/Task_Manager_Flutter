@@ -1,19 +1,28 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthController
-{
-  final String accessToken = 'access-token';
+class AuthController {
+  static const String _accessTokenKey = 'access-token';
+  static String? accessToken;
+  static Future<void> saveAccessToken(String token) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(_accessTokenKey, token);
+    accessToken = token;
+  }
 
-  Future<void> saveAccessToken (String token) async{
-   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-   await sharedPreferences.setString(accessToken, token);
-  }
-  Future<void> getAccessToken (String token) async{
+  static Future<String?> getAccessToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-   sharedPreferences.getString(accessToken);
+    String? token = sharedPreferences.getString(_accessTokenKey);
+    accessToken = token;
+    return token;
   }
-  Future<void> clearUserData() async{
+
+  static bool isLoggedIn() {
+    return accessToken != null;
+  }
+
+  static Future<void> clearUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await  sharedPreferences.clear();
+    await sharedPreferences.clear();
+    accessToken = null;
   }
 }
