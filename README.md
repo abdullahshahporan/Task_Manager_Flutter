@@ -1,4 +1,4 @@
-# t_manager
+# Task Manager
 
 A new Flutter project which is task manager
 
