@@ -21,7 +21,7 @@ final bool isProfileScreenOpen;
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProfileScreen(),
+            builder: (context) => const ProfileScreen(),
           ),
         );
       },
@@ -69,11 +69,11 @@ final bool isProfileScreenOpen;
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignInScreen(),
+                      builder: (context) => const SignInScreen(),
                     ),
                     (predicate) => false);
               },
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.logout),
             ),
           ],
         ),
@@ -83,5 +83,5 @@ final bool isProfileScreenOpen;
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
