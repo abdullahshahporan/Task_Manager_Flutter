@@ -109,8 +109,8 @@ class _SignInScreenState extends State<SignInScreen> {
               if (value?.isEmpty ?? true) {
                 return 'Enter a valid Password!';
               }
-              if (value!.length <= 6) {
-                return 'Please enter more than 6 Characters!';
+              if (value!.length <= 2) {
+                return 'Please enter more than 2 Characters!';
               }
             },
           ),
@@ -170,7 +170,7 @@ class _SignInScreenState extends State<SignInScreen> {
     _inProgress = false;
     setState(() {});
     if (response.isSuccess) {
-      await AuthController.saveAccessToken(response.ResponseData['token']);
+      await AuthController.saveAccessToken(response.responseData['token']);
 
       Navigator.pushAndRemoveUntil(
         context,
