@@ -21,6 +21,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   bool _addNewTaskInProgress = false;
   bool _shouldRefreshPreviousPage = false;
 
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -97,6 +98,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   }
 
   Future<void> _addNewTask() async {
+
     _addNewTaskInProgress = true;
     setState(() {});
     Map<String, dynamic> requestBody = {
@@ -109,6 +111,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     _addNewTaskInProgress = false;
     setState(() {});
     if (response.isSuccess) {
+      _shouldRefreshPreviousPage=true;
       _clearTextFields();
       showSnackBarMessage(context, 'New task added!');
     } else {
