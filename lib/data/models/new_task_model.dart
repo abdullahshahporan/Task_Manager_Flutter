@@ -2,16 +2,16 @@ import 'package:t_manager/data/models/task_model.dart';
 
 class TaskListModel {
   String? status;
-  List<TaskModel>? data;
+  List<TaskModel>? taskList;
 
-  TaskListModel({this.status, this.data});
+  TaskListModel({this.status, this.taskList});
 
   TaskListModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['data'] != null) {
-      data = <TaskModel>[];
+      taskList = <TaskModel>[];
       json['data'].forEach((v) {
-        data!.add(new TaskModel.fromJson(v));
+        taskList!.add(new TaskModel.fromJson(v));
       });
     }
   }
